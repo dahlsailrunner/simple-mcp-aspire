@@ -8,6 +8,44 @@ It shows Aspire orchestration with Open Telemetry on the Aspire dashboard, and
 includes the [MCP Inspector integration from the Community Toolkit](https://www.nuget.org/packages/CommunityToolkit.Aspire.Hosting.McpInspector),
 which has [a good readme / repo](https://github.com/CommunityToolkit/Aspire/tree/main/src/CommunityToolkit.Aspire.Hosting.McpInspector).
 
+## Successful https connection
+
+I was finally able to get the https connection to work by using some code from
+[the Aspire JavaScript hosting extensions where it adds trust for ASP.NET dev cert
+to the Node app](https://github.com/dotnet/aspire/blob/f1b9ef25cafc6e0307e691a18d154db189b1dd48/src/Aspire.Hosting.JavaScript/JavaScriptHostingExtensions.cs#L218) - which should be an extension method
+call appended to the `AddMcpInspector()` method in the AppHost:
+
+```csharp
+.WithCertificateTrustConfiguration((ctx) =>
+{
+    if (ctx.Scope == CertificateTrustScope.Append)
+    {
+        ctx.EnvironmentVariables["NODE_EXTRA_CA_CERTS"] = ctx.CertificateBundlePath;
+    }
+    else
+    {
+        if (ctx.EnvironmentVariables.TryGetValue("NODE_OPTIONS", out var existingOptionsObj))
+        {
+            ctx.EnvironmentVariables["NODE_OPTIONS"] = existingOptionsObj switch
+            {
+                // Attempt to append to existing NODE_OPTIONS if possible, otherwise overwrite
+                string s when !string.IsNullOrEmpty(s) => $"{s} --use-openssl-ca",
+                ReferenceExpression re => ReferenceExpression.Create($"{re} --use-openssl-ca"),
+                _ => "--use-openssl-ca",
+            };
+        }
+        else
+        {
+            ctx.EnvironmentVariables["NODE_OPTIONS"] = "--use-openssl-ca";
+        }
+    }
+
+    return Task.CompletedTask;
+})
+```
+
+## Original notes about being unsuccessful with https or http
+
 Not sure why, but for some reason the MCP inspector won't connect to the MCP server without this
 line in `apphost.cs` under the `AddMcpInspector()` line:
 
@@ -15,9 +53,12 @@ line in `apphost.cs` under the `AddMcpInspector()` line:
 .WithEnvironment("NODE_TLS_REJECT_UNAUTHORIZED", "0")
 ```
 
+This MAY be resolved with .NET 10.0.1 which would probably
+require creating new local .NET certs: [https://github.com/dotnet/aspnetcore/issues/64261](https://github.com/dotnet/aspnetcore/issues/64261)
+
 What follows is a review of different approaches for setup with Aspire 13 and the results I saw.
 
-## Using an http profile
+### Using an http profile
 
 Use the `launchSettings.json-http` as the real `launchSettings.json` file.  That would produce this error:
 
