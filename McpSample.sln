@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11222.15 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloMcp", "HelloMcp\HelloMcp.csproj", "{B50CD121-2956-4A06-8C36-EBC9A9DD513B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.ServiceDefaults", "Sample.ServiceDefaults\Sample.ServiceDefaults.csproj", "{5DC39846-68C1-4C0A-8CA1-C78386C4ECBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloAppHost", "HelloAppHost\HelloAppHost.csproj", "{F80EE76F-85AE-989F-E0CD-FE05BA0C8260}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,8 +43,23 @@ Global
 		{5DC39846-68C1-4C0A-8CA1-C78386C4ECBB}.Release|x64.Build.0 = Release|Any CPU
 		{5DC39846-68C1-4C0A-8CA1-C78386C4ECBB}.Release|x86.ActiveCfg = Release|Any CPU
 		{5DC39846-68C1-4C0A-8CA1-C78386C4ECBB}.Release|x86.Build.0 = Release|Any CPU
+		{F80EE76F-85AE-989F-E0CD-FE05BA0C8260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F80EE76F-85AE-989F-E0CD-FE05BA0C8260}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F80EE76F-85AE-989F-E0CD-FE05BA0C8260}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F80EE76F-85AE-989F-E0CD-FE05BA0C8260}.Debug|x64.Build.0 = Debug|Any CPU
+		{F80EE76F-85AE-989F-E0CD-FE05BA0C8260}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F80EE76F-85AE-989F-E0CD-FE05BA0C8260}.Debug|x86.Build.0 = Debug|Any CPU
+		{F80EE76F-85AE-989F-E0CD-FE05BA0C8260}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F80EE76F-85AE-989F-E0CD-FE05BA0C8260}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F80EE76F-85AE-989F-E0CD-FE05BA0C8260}.Release|x64.ActiveCfg = Release|Any CPU
+		{F80EE76F-85AE-989F-E0CD-FE05BA0C8260}.Release|x64.Build.0 = Release|Any CPU
+		{F80EE76F-85AE-989F-E0CD-FE05BA0C8260}.Release|x86.ActiveCfg = Release|Any CPU
+		{F80EE76F-85AE-989F-E0CD-FE05BA0C8260}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {035C77D2-40DF-46A9-94D9-4569584B7C11}
 	EndGlobalSection
 EndGlobal
